@@ -1,5 +1,6 @@
 const buttonCriaContador = document.getElementById("criarContador");
 const tipoContador = document.getElementById("tipoContador");
+const buttonZerar = document.getElementById("zerar");
 
 function criarC() {
   const contador = document.createElement("div");
@@ -9,11 +10,14 @@ function criarC() {
   const tipo = tipoContador.value;
   contador.style.background = randomColor();
   contador.classList.add("tipoContador");
+  //onclick="incrementar(event)
   contador.innerHTML = `
-      Contador de ${tipo}: <br />
-      <p class="valor" id="valor">0</p>
-      <button class="button" id="zerar" onclick="zerar(event)">ZERAR</button>
-      <br />
+  <div class="caixa" ">
+  Contador ${tipo}: <br />
+  <p class="valor" id="valor">0</p>
+  <button class="button" id="zerar" onclick="zerar(event)">ZERAR</button>
+  <br />
+</div>
   `;
   contador.onclick = (event) => {
     incrementar(event);
@@ -31,24 +35,23 @@ function randomColor() {
   );
 }
 
-const buttonZerar = document.getElementById("zerar");
-
 function incrementar(event) {
-  if (event.target.classList[0] == "listaContadores") {
-    const tipo = event.target;
-    const valor = tipo.children[1];
-    valor.innerHTML = parseInt(valor.innerHTML) + 1;
+  console.log(event);
+  console.log(event.target);
+  if (event.target.classList[0] == "caixa") {
+    const item = event.target;
+    console.log(item);
+    const count = item.children[1];
+    count.innerHTML = parseInt(count.innerHTML) + 1;
   } else {
-    const tipo = tipo.event.target.parentElement;
-    const valor = tipo.children[1];
-    valor.innerHTML = parseInt(valor.innerHTML) + 1;
+    const item = event.target.parentElement;
+    const count = item.children[1];
+    count.innerHTML = parseInt(count.innerHTML) + 1;
   }
 }
 
 function zerar(event) {
-  if (event.target.id === "zerar") {
-    document.getElementById("valor").innerHTML = 0;
-  } else if (event.target.id === "zerar2") {
-    document.getElementById("valor2").innerHTML = 0;
-  }
+  const item = event.target.parentElement;
+  const count = item.children[1];
+  count.innerHTML = "-1";
 }
